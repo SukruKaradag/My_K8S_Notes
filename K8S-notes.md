@@ -114,6 +114,19 @@ strace -eopenat kubectl version
 
 - Ayni pod içerisindeki containerlar aynı node üstünde çalışıtırılır ve bu containerlar birbirleriyle **localhost** üstünden haberleşebilirler.
 
+- Oluşturulan pod'lar kendilerine atanan label'lara göre çağrılabilir.
+  Örn.:
+  ![labels](assets/labels.png "label örneği")
+
+  ya da `k  get pods -l "app!=firstapp" --show-labels`
+
+
+- Bir key'in belirli değerlerini çağırmak için `kubectl get pods -l "'key_name' in (value1, value2)" --show-labels` 
+  ya da `kubectl get pods -l "'key_name' notin (value1, value2)" --show-labels`:
+
+![selector](assets/selector.png "selector örneği")
+
+
 ### Pod lifecycle
 - *RestartPolicy*:
   - Always
@@ -210,3 +223,6 @@ k exec -it "pod_name" -c "container_name" -- /bin/bash` #Pod içindeki istenilen
 - İstenilen container'a bağlanmak için: `kubectl exec -it "pod_name" -c "container_name" -- /bin/bash`
 - Loglarına bakma için: `kubectl logs -f "pod_name" -c "container_name"`
 - port forwarding için: `kubectl port-forward pod/"pod_name" 8080:80`
+
+
+## Namespaces
